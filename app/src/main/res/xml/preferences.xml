@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:key="pref_sync"
+        android:title="@string/notifications"
+        android:summary="@string/notification_summary"
+        android:defaultValue="false"/>
+    <PreferenceScreen
+        android:key="list_leagues"
+        android:title="@string/leagues"
+        android:persistent="false">
+        <CheckBoxPreference
+            android:key="espana"
+            android:title="espana"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="inglaterra"
+            android:title="inglaterra"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="francia"
+            android:title="francia"
+            android:defaultValue="true"/>
+    </PreferenceScreen>
+</PreferenceScreen>

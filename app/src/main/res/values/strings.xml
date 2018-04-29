@@ -11,4 +11,10 @@
     <string name="action_settings">Preferences</string>
     <string name="title_activity_settings">Settings</string>
 
+    <!-- Strings related to Settings -->
+    <string name="notifications">Notify every goal</string>
+    <string name="notification_summary">Notify every goal in your league preferences.</string>
+    <string name="leagues">Select your leagues</string>
+
+    <string-array name="planets_array">Algo</string-array>
 </resources>
