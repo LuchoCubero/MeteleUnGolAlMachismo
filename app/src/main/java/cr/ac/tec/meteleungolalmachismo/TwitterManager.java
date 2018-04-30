@@ -2,8 +2,11 @@ package cr.ac.tec.meteleungolalmachismo;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.widget.Toast;
 import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthToken;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
@@ -43,7 +46,6 @@ public class TwitterManager {
                             Intent main = new Intent(getApplicationContext(), MainActivity.class);
                             main.putExtra("username", username);
                             getApplicationContext().startActivity(main);
-                            Toast.makeText(getApplicationContext(), "OKOK", Toast.LENGTH_LONG).show();
                         }
 
                         @Override
@@ -60,6 +62,11 @@ public class TwitterManager {
 
         }
 
+    }
+
+    public void logout()
+    {
+         //Empty
     }
 
 }

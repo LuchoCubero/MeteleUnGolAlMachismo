@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <group android:checkableBehavior="single">
     <!-- Settings, should always be in the overflow -->
-    <item android:id="@+id/Preferences"
-        android:title="@string/action_settings"
-        android:actionLayout="@layout/activity_main"
-        app:showAsAction="never" />
+        <item android:id="@+id/Preferences"
+            android:title="@string/action_settings" />
+    </group>
 </menu>
