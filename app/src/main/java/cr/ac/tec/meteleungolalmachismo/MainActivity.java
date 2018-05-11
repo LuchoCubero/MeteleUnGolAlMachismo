@@ -52,8 +52,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else if(String.valueOf(menuItem.getItemId()).equals(String.valueOf(R.id.logout)))
                         {
-                            FacebookManager fb = new  FacebookManager();
-                            fb.logout();
+                            //LOGOUT TO DO
                             TwitterManager tw = new TwitterManager();
                             tw.logout();
                             Intent login = new Intent(getApplicationContext(), LoginActivity.class);
