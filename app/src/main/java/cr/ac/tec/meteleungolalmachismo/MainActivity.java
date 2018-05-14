@@ -10,10 +10,10 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.twitter.sdk.android.core.Twitter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_action_name);
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         String username = intent.getStringExtra("username");
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
@@ -52,11 +52,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else if(String.valueOf(menuItem.getItemId()).equals(String.valueOf(R.id.logout)))
                         {
-                            //LOGOUT TO DO
-                            TwitterManager tw = new TwitterManager();
-                            tw.logout();
-                            Intent login = new Intent(getApplicationContext(), LoginActivity.class);
-                            getApplicationContext().startActivity(login);
+                            Intent login = new Intent(MainActivity.this, LoginActivity.class);
+                            MainActivity.this.startActivity(login);
                         }
                         // Add code here to update the UI based on the item selected
                         // For example, swap UI fragments here
@@ -68,6 +65,15 @@ public class MainActivity extends AppCompatActivity {
 
         TextView tvuser = (TextView)header.findViewById(R.id.headerTV);
         tvuser.setText(username);
+
+        Button Testbutton = (Button) findViewById(R.id.button6);
+        Testbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(MainActivity.this, ListItemActivity.class);
+                MainActivity.this.startActivity(intent1);
+            }
+        });
     }
 
     @Override
@@ -79,5 +85,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 
 }

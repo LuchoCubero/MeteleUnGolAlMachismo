@@ -33,8 +33,16 @@
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
             app:headerLayout="@layout/nav_header"
-            app:menu="@menu/drawer_view"/>
+            app:menu="@menu/drawer_view">
 
+
+        </android.support.design.widget.NavigationView>
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:text="Button" />
 
 
 </android.support.v4.widget.DrawerLayout>

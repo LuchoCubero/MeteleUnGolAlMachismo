@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">MeteleUnGolAlMachismo</string>
-    <string name="facebook_app_id">2070115296599727</string>
-    <string name="fb_login_protocol_scheme">fb2070115296599727</string>
+
+    <!-- Facebook Keys -->
+    <string name="facebook_app_id">383780248803191</string>
+    <string name="fb_login_protocol_scheme">fb383780248803191</string>
 
     <!-- Twitter Keys -->
     <string name="com.twitter.sdk.android.CONSUMER_KEY">j8LgCzTOMAp9UyLpzaHEyVdsR</string>

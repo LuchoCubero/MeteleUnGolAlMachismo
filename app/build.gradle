@@ -28,7 +28,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     // Include all the Facebook APIs
     implementation 'com.facebook.android:facebook-android-sdk:[4,32)'
+    implementation 'com.facebook.android:facebook-share:[4,32)'
     // Include all the Twitter APIs
-    compile('com.twitter.sdk.android:twitter:3.1.0')
-    compile('com.twitter.sdk.android:twitter-core:3.1.0')
+    implementation('com.twitter.sdk.android:twitter:3.1.0')
+    implementation('com.twitter.sdk.android:twitter-core:3.1.0')
+
 }
