@@ -19,4 +19,100 @@
     <string name="leagues">Select your leagues</string>
 
     <string-array name="planets_array">Algo</string-array>
+
+
+    <!-- Datos de mundiales -->
+    <string name="primergol">Lucien Laurent de Francia</string>
+    <string name="primergoleador">Guillermo Stábile de Argentina</string>
+    <string name="mejorgoleador">Miroslav Klose de Alemania</string>
+
+    <string-array name="Francia">
+        <item>Lilian Thuram es el jugador con más partidos disputados con la selección de Francia.</item>
+        <item>Thierry Henry es el jugador con más goles anotados para la selección de Francia.</item>
+        <item>Fabien Barthez fue el portero titular de la selección de Francia campeona en 1998.</item>
+    </string-array>
+
+    <string-array name="CostaRica">
+        <item>Los estudiantes Oscar Pinto y Federico Cox, regresados de un viaje por Inglaterra, introducen el fútbol a Costa Rica en la segunda mitad del siglo XIX.</item>
+        <item>Juan Cayasso fue el anotador del primer gol de Costa Rica en un Campeonato Mundial Mayor de Fútbol.</item>
+        <item>Marvin Rodríguez, técnico de Costa Rica, fue destituido previo al Mundial de Italia 1990.</item>
+        <item>En su cuarta participación en copas mundiales (Brasil 2014) Costa Rica quedó eliminado sin ser vencido en tiempo regular. </item>
+    </string-array>
+
+    <string-array name="Serbia">
+        <item>Participó como selección de fútbol de Yugoslavia hasta el 2003</item>
+        <item>En la Copa Mundial de Fútbol del 2006 participó como Serbia y Montenegro</item>
+        <item>El nombre de su estadio oficial es “Estrella Roja” y es conocido como Marakana.</item>
+    </string-array>
+
+    <string-array name="Brasil">
+        <item>El fútbol se introduce en Brasil por Charles Miller, un joven brasileño de padres escoceses, después de un viaje que realizó a Inglaterra.</item>
+        <item>Históricamente la habilidad de los futbolistas brasileños se asocia los movimientos del capoeira y la samba.</item>
+        <item>Brasil ha participado en todas las copas mundiales y es el país que ha ganado más títulos.</item>
+    </string-array>
+
+    <string-array name="Alemania">
+        <item>Alemania es la selección que ha disputado más semifinales y finales en copas del mundo. </item>
+        <item>Alemania es el equipo más goleador en mundiales.</item>
+        <item>En el mundial realizado en Alemania en 1974 participó tanto la selección de Alemania Federal (selección alemana actual) y la selección de Alemania Democrática. </item>
+    </string-array>
+
+    <string-array name="Espana">
+        <item>Su primera participación fue en el Mundial de Italia 1934.</item>
+        <item>Su primer y único título lo obtiene en el año 2010, en el mundial realizado en Sudáfrica.</item>
+        <item>En el mundial de Brasil 2014, defendiendo su título, fue la primera selección eliminada.</item>
+    </string-array>
+
+    <string-array name="Panama">
+        <item>Clasifica por primera vez a un mundial en la eliminatorias para Rusia 2018.</item>
+        <item>Gabriel “el gavilán” Gómez es el jugador con más participaciones con la selección de Panamá.</item>
+        <item>En Panamá, el fútbol, como deporte profesional, empezó en 1920. </item>
+    </string-array>
+
+    <string-array name="Belgica">
+        <item>Tuvo su primer partido oficial en 1904.</item>
+        <item>Jan Verthonghen es el jugador con más partidos disputados con la selección de Bélgica.</item>
+        <item>Ha participado en un total de 12 copas mundiales. </item>
+        <item>Obtuvo 28 puntos de los 30 disputados en la eliminatoria para el mundial de Rusia 2018.</item>
+    </string-array>
+
+    <string-array name="Suiza">
+        <item>El mejor resultado en copas mundiales es alcanzar los cuartos de final.</item>
+        <item>En el mundial de Alemania 2006, Suiza se convirtió en el primer y único equipo en ser eliminado de una copa mundial sin perder un partido y sin haber recibido un gol.</item>
+        <item>El máximo goleador histórico de Suiza es Alexander Frei.</item>
+    </string-array>
+
+    <string-array name="Argentina">
+        <item>Manuel Ferreira,  en el mundial de Uruguay 1930, fue el primer capitán de la selección de Argentina en una copa del mundo.</item>
+        <item>Disputó junto a Francia el segundo partido de la historia de los mundiales.</item>
+        <item>El delantero argentino Diego Armando Maradona marcó el denominado “gol del siglo” en el mundial de México 86 contra la selección de Inglaterra.</item>
+        <item>Diego Armando Maradona anota contra Inglaterra, en México 86, el gol denominado como “la mano de Dios”.</item>
+    </string-array>
+
+    <string-array name="Mexico">
+        <item>Recibió el primer gol en la historia de los mundiales.</item>
+        <item>Antonio “la tota” Carbajal, junto con Lothar Matthaeus y Gianluigi Buffon, tiene el record de más participaciones en mundiales de fútbol, con cinco apariciones.</item>
+        <item>México es el quinto equipo con más participaciones en copas mundiales.</item>
+    </string-array>
+
+    <string-array name="Peru">
+        <item>La última vez que participo en una copa del mundo fue en España 1982.</item>
+        <item>En Argentina 78 fue eliminado por el equipo anfitrión tras una goleada de 6 a 0.</item>
+        <item>Teófilo Cubillas es el “jugador ícono” de la selección peruana. Nombrado mejor futbolista peruano del siglo XX.</item>
+    </string-array>
+
+
+    <string-array name="Senegal">
+        <item>Fue la selección número 24 en clasificar al mundial de Rusia 2018.</item>
+        <item>Rusia será su segunda participación en copas mundiales. Anteriormente había participado en Corea del Sur/Japón 2002.</item>
+        <item>En su primera y única participación (2002) llegó a cuartos de final, siendo una de las sorpresas del mundial. Dejó en el camino a equipos como Francia en fase de grupos y a Suecia en los octavos de final.</item>
+    </string-array>
+
+    <string-array name="Colombia">
+        <item>Su peor puesto en el Ranking de FIFA ha sido en la posición número 54. Sin embargo, desde 1993 se ha mantenido entre las mejores 20 selecciones del Ranking.</item>
+        <item>El portero colombiano Faryd Mondragón tiene el record de ser el jugador con mayor edad (43 años y tres días) en participar en una copa del mundo</item>
+        <item>Ha participado en el 43% de las copas del mundo.</item>
+    </string-array>
+
+
 </resources>

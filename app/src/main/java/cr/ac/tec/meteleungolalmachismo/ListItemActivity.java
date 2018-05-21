@@ -44,7 +44,7 @@ public class ListItemActivity extends AppCompatActivity {
         });
     }
 
-    public void FBshare(){ //Share screen to Facebook
+    public void FBshare(){ //Share screen to Facebook https://developers.facebook.com/docs/sharing/android
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
             // Permission is granted
             Toast.makeText(ListItemActivity.this, "OKOKOK", Toast.LENGTH_LONG).show();

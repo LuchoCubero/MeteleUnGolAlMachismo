@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:stretchColumns="*">
+
+    <TableRow
+        android:id="@+id/firstRow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/equipo1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:paddingBottom="2dip"
+            android:textColor="@color/cardview_dark_background"/>
+
+        <TextView
+            android:id="@+id/marcador1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:paddingBottom="2dip"
+            android:textColor="@color/cardview_dark_background"/>
+
+        <TextView
+            android:id="@+id/equipo2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="2dip"
+            android:textColor="@color/cardview_dark_background" />
+
+        <TextView
+            android:id="@+id/marcador2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="2dip"
+            android:textColor="@color/cardview_dark_background" />
+
+    </TableRow>
+
+
+</TableLayout>

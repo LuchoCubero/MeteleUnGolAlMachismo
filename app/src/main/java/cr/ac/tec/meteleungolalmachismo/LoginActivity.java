@@ -65,8 +65,8 @@ public final class LoginActivity extends AppCompatActivity {
                     new GraphRequest.GraphJSONObjectCallback() {
                         @Override
                         public void onCompleted(
-                                JSONObject object,
-                                GraphResponse response) {
+                            JSONObject object,
+                            GraphResponse response) {
                             try {
                                 username[0] = object.getString("name");
                                 Intent main = new Intent(LoginActivity.this, MainActivity.class);

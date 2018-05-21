@@ -22,27 +22,29 @@
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:divider="#000"
+            android:dividerHeight="1dp"
+            android:listSelector="#600"/>
+
     </FrameLayout>
 
+    <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_view">
+    </android.support.design.widget.NavigationView>
 
-        <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
-        <android.support.design.widget.NavigationView
-            android:id="@+id/nav_view"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:fitsSystemWindows="true"
-            app:headerLayout="@layout/nav_header"
-            app:menu="@menu/drawer_view">
 
-
-        </android.support.design.widget.NavigationView>
-
-    <Button
-        android:id="@+id/button6"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:text="Button" />
 
 
 </android.support.v4.widget.DrawerLayout>
