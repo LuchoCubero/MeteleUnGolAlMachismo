@@ -1,18 +1,27 @@
 package cr.ac.tec.meteleungolalmachismo;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private ListView lv;
-    ArrayList<HashMap<String, String>> listaPartidos;
+    ArrayList<Object> datos;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,48 +58,42 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
-//        NavigationView navigationView = findViewById(R.id.nav_view);
-//        navigationView.setNavigationItemSelectedListener(
-//            new NavigationView.OnNavigationItemSelectedListener() {
-//                @Override
-//                public boolean onNavigationItemSelected(MenuItem menuItem) {
-//                    // set item as selected to persist highlight
-//                    menuItem.setChecked(true);
-//                    // close drawer when item is tapped
-//                    mDrawerLayout.closeDrawers();
-//                    //Toast.makeText(getApplicationContext(), String.valueOf(menuItem.getItemId()), Toast.LENGTH_LONG).show();
-//
-//                    if(String.valueOf(menuItem.getItemId()).equals(String.valueOf(R.id.pref)))
-//                    {
-//                        Toast.makeText(getApplicationContext(), "OKOKOK", Toast.LENGTH_LONG).show();
-//                    }
-//                    else if(String.valueOf(menuItem.getItemId()).equals(String.valueOf(R.id.logout)))
-//                    {
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+            new NavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(MenuItem menuItem) {
+                    // set item as selected to persist highlight
+                    menuItem.setChecked(true);
+                    // close drawer when item is tapped
+                    mDrawerLayout.closeDrawers();
+                    //Toast.makeText(getApplicationContext(), String.valueOf(menuItem.getItemId()), Toast.LENGTH_LONG).show();
+
+                    if(String.valueOf(menuItem.getItemId()).equals(String.valueOf(R.id.pref)))
+                    {
+                        Toast.makeText(getApplicationContext(), "OKOKOK", Toast.LENGTH_LONG).show();
+
+                    }
+                    else if(String.valueOf(menuItem.getItemId()).equals(String.valueOf(R.id.logout)))
+                    {
+
 //                        Intent login = new Intent(MainActivity.this, LoginActivity.class);
 //                        MainActivity.this.startActivity(login);
-//                    }
-//                    // Add code here to update the UI based on the item selected
-//                    // For example, swap UI fragments here
-//                    return true;
-//                }
-//            });
+                    }
+                    // Add code here to update the UI based on the item selected
+                    // For example, swap UI fragments here
+                    return true;
+                }
+            });
 
-//        View header = navigationView.getHeaderView(0);
+        View header = navigationView.getHeaderView(0);
 
-//        TextView tvuser = (TextView)header.findViewById(R.id.headerTV);
-//        tvuser.setText(username);
+        TextView tvuser = (TextView)header.findViewById(R.id.headerTV);
+        tvuser.setText(username);
 
-//        Button Testbutton = (Button) findViewById(R.id.button6);
-//        Testbutton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent1 = new Intent(MainActivity.this, ListItemActivity.class);
-//                MainActivity.this.startActivity(intent1);
-//            }
-//        });
 
         lv = (ListView) findViewById(R.id.list);
-        listaPartidos = new ArrayList<>();
+        datos = new ArrayList<>();
         new GetMatches().execute();
     }
 
@@ -126,36 +130,17 @@ public class MainActivity extends AppCompatActivity {
                     int pais = jsonPaises.getInt("country_id");
                     Log.e("RESPONSE", String.valueOf(pais));
                     JSONArray ligas = new JSONArray(getLigaPorPais(pais));
-
                     for(int b = 0; b < ligas.length(); b++) //GetPartidos
                     {
-                        JSONObject jsonLigas = ligas.getJSONObject(b);
-                        int liga = jsonLigas.getInt("league_id");
-                        String nombreLiga = jsonLigas.getString("league_name");
-                        Log.e("RESPONSE", String.valueOf(liga));
-                        Log.e("RESPONSE", nombreLiga);
-                        JSONArray partidos = new JSONArray(getPartidos(liga));
+                        Competition competition = new Competition(ligas.getJSONObject(b));
+                        String liga = competition.getLeague_id();
+                        datos.add(competition);
 
+                        JSONArray partidos = new JSONArray(getPartidos(Integer.valueOf(liga)));
                         for(int c = 0; c < partidos.length(); c++)
                         {
-                            JSONObject jsonPartido = partidos.getJSONObject(c);
-                            String hometeamName = jsonPartido.getString("match_hometeam_name");
-                            String match_awayteam_name = jsonPartido.getString("match_awayteam_name");
-                            Log.e("RESPONSE", hometeamName);
-                            Log.e("RESPONSE", match_awayteam_name);
-
-                            HashMap<String, String> partido = new HashMap<>(); //Map of single match
-                            partido.put("id", jsonPartido.getString("match_id"));
-                            partido.put("liga", jsonPartido.getString("league_name"));
-                            partido.put("fecha", jsonPartido.getString("match_date"));
-                            partido.put("estado", jsonPartido.getString("match_status"));
-                            partido.put("tiempo", jsonPartido.getString("match_time"));
-                            partido.put("casa", jsonPartido.getString("match_hometeam_name"));
-                            partido.put("visita", jsonPartido.getString("match_awayteam_name"));
-                            partido.put("casagoles", jsonPartido.getString("match_hometeam_score"));
-                            partido.put("visitagoles", jsonPartido.getString("match_awayteam_score"));
-
-                            listaPartidos.add(partido);
+                            Match match = new Match(partidos.getJSONObject(c));
+                            datos.add(match);
                         }
                     }
                 }
@@ -170,10 +155,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result){
             super.onPostExecute(result);
-            ListAdapter adapter = new SimpleAdapter(MainActivity.this, listaPartidos,
-                    R.layout.list_item, new String[]{ "casa","casagoles","visita","visitagoles"},
-                    new int[]{R.id.equipo1, R.id.marcador1, R.id.equipo2, R.id.marcador2});
-            lv.setAdapter(adapter);
+            lv.setAdapter(new CompetitionAdapter(MainActivity.this, datos));
         }
 
         public String getPaises(){
@@ -263,4 +245,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 }

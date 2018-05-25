@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/textView_team1"
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:text="Borussia Monchengladbach"
+        android:layout_alignParentLeft="true"/>
+
+    <TextView
+        android:id="@+id/textView_score1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/textView_team1"/>
+
+    <TextView
+        android:id="@+id/textView_team2"
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:text="Brighton and Hove Albion"
+        android:layout_below="@+id/textView_team1"/>
+
+    <TextView
+        android:id="@+id/textView_score2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="11"
+        android:layout_toRightOf="@+id/textView_team2"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/textView_score1"/>
+
+    <TextView
+        android:id="@+id/textView_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="In progress"/>
+
+
+</RelativeLayout>
