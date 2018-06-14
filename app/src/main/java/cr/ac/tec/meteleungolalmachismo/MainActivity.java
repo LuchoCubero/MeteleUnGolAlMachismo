@@ -23,6 +23,9 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.JsonObject;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.BufferedReader;
@@ -39,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private ListView lv;
-    ArrayList<Object> datos;
+    ArrayList<Object> data;
 
 
     @Override
@@ -93,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         lv = (ListView) findViewById(R.id.list);
-        datos = new ArrayList<>();
+        data = new ArrayList<>();
         new GetMatches().execute();
     }
 
@@ -109,7 +112,8 @@ public class MainActivity extends AppCompatActivity {
 
     private class GetMatches extends AsyncTask<Void, Void, Void>{
 
-        private String APIkey = "3e9154281f99813c6a45c9ffaab8bf2e9f87b0b3e79f81296c461df25d2df54c";
+        private String refreshToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1YWRkMTRiNzI3OTNiYjU2ODI2NTg3NTQiLCJpYXQiOjE1Mjg5NTY1NjR9.JbeVKVxt92VGeN5XDiufW7Ti0qRm5xxyWkgCMZZ9wh4";
+        private String accessToken = "";
         @Override
         protected void onPreExecute()
         {
@@ -118,6 +122,178 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
+        protected void onPostExecute(Void result){
+            super.onPostExecute(result);
+            lv.setAdapter(new CompetitionAdapter(MainActivity.this, data));
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try{
+                accessToken = accessKey();
+                JSONArray countries = getCountries();
+                for(int a = 0; a < countries.length(); a++)
+                {
+                    JSONObject country = countries.getJSONObject(a);
+                    JSONArray leagues = country.getJSONArray("leagues");
+                    for(int b = 0; b < leagues.length(); b++)
+                    {
+                        JSONObject league = leagues.getJSONObject(b);
+                        Log.e("LIGA", league.toString());
+                        if(league.getInt("_id") != 83)
+                        {
+                            league.put("country_name", country.getString("name"));
+                            Competition competition = new Competition(league);
+                            data.add(competition);
+                            JSONObject season = getLastSeason(league.getString("_id"));
+                            JSONArray matches = getFixturesBySeason(season.getString("_id"));
+                            for(int c = 0; c < matches.length(); c++)
+                            {
+                                JSONObject jsonMatch = matches.getJSONObject(c);
+                                jsonMatch.put("league_name", competition.getLeague_name());
+                                Match match = new Match(jsonMatch);
+                                data.add(match);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Log.e("RESPONSE Background", e.getMessage());
+                return null;
+            }
+            return null;
+        }
+
+        private String accessKey()
+        {
+            try
+            {
+                String url = "https://api.sportdeer.com/v1/accessToken?refresh_token=" + refreshToken;
+                String response = getResponse(url);
+                Log.e("RESPONSE", "Response from url: " + response.toString());
+                JSONObject object = new JSONObject(response);
+                return object.getString("new_access_token");
+            }
+            catch (Exception e)
+            {
+                Log.e("RESPONSE", e.getMessage());
+                return null;
+            }
+        }
+
+        private JSONArray getCountries()
+        {
+            try
+            {
+                String url = "https://api.sportdeer.com/v1/countries?populate=leagues&access_token=";
+                String response = getResponse(url);
+                JSONObject object = new JSONObject(response);
+                JSONArray data = object.getJSONArray("docs");
+                return data;
+            }
+            catch (Exception e) //Falta manejar bien el error.
+            {
+                Log.e("RESPONSE", e.getMessage());
+                return null;
+            }
+        }
+
+        private JSONObject getLastSeason(String leagueID)
+        {
+            try
+            {
+                String url = "https://api.sportdeer.com/v1/leagues/"+leagueID+"/seasons?access_token=";
+                String response = getResponse(url);
+                JSONObject object = new JSONObject(response);
+                JSONArray data = object.getJSONArray("docs");
+                int length = data.length()-1;
+                JSONObject last = data.getJSONObject(length);
+                if(last.has("is_last_season"))
+                {
+                    if(last.getString("is_last_season") == "true")
+                    {
+                        return last;
+                    }
+                }
+                else //Weird, in case of failure
+                {
+                    for(int a = 0; a < length; a++)
+                    {
+                        JSONObject last2 = data.getJSONObject(a);
+                        if(last2.has("is_last_season"))
+                        {
+                            if(last2.getString("is_last_season") == "true")
+                            {
+                                return last2;
+                            }
+                        }
+                    }
+                }
+                return null;
+            }
+            catch (Exception e) //Falta manejar bien el error.
+            {
+                Log.e("RESPONSE getLastSeason", e.getMessage());
+                return null;
+            }
+        }
+
+        private JSONArray getFixturesBySeason(String seasonId)
+        {
+            try
+            {
+                LocalDate date = LocalDate.now().plusDays(15);
+                LocalDate daysAgo = LocalDate.now().minusDays(15);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                String dateFrom = daysAgo.format(formatter);
+                String dateTo = date.format(formatter);
+                Log.e("TIME",dateFrom);
+                Log.e("TIME",dateTo);
+                String url = "https://api.sportdeer.com/v1/seasons/"+seasonId+"/fixtures?dateFrom="+dateFrom+
+                        "&dateTo="+dateTo+"&access_token=";
+                String response = getResponse(url);
+                JSONObject object = new JSONObject(response);
+                JSONArray data = object.getJSONArray("docs");
+                return data;
+            }
+            catch (Exception e) //Falta manejar bien el error.
+            {
+                Log.e("RESPONSE", e.getMessage());
+                return null;
+            }
+        }
+
+        private String getResponse(String url)
+        {
+            try
+            {
+                url = url + accessToken;
+                URL obj = new URL(url);
+                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+                con.setRequestMethod("GET");
+                int responseCode = con.getResponseCode();
+                Log.e("RESPONSE","Sending 'GET' request to URL : " + url);
+                Log.e("RESPONSE","Response Code : " + responseCode);
+                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+                return response.toString();
+            }
+            catch (Exception e)
+            {
+                Log.e("RESPONSE", e.getMessage());
+                return null;
+            }
+        }
+
+
+       /* @Override
         protected Void doInBackground(Void... voids) {
             try{
                 //Read JSON response and print
@@ -222,7 +398,7 @@ public class MainActivity extends AppCompatActivity {
             try
             {
                 //String url = "https://apifootball.com/api/?action=get_events&from="+inicioFecha+"&to="+finalFecha+"&league_id="+liga+"&APIkey=" + APIkey;
-                String url = "https://apifootball.com/api/?action=get_events&from=2018-02-21&to=2018-03-21&league_id=63&APIkey=3e9154281f99813c6a45c9ffaab8bf2e9f87b0b3e79f81296c461df25d2df54c"; //Just for testing
+                String url = "https://apifootball.com/api/?action=get_events&from=2018-04-07&to=2018-06-06&league_id=63&APIkey=3e9154281f99813c6a45c9ffaab8bf2e9f87b0b3e79f81296c461df25d2df54c"; //Just for testing
                 URL obj = new URL(url);
                 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
                 con.setRequestMethod("GET");
@@ -243,7 +419,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("RESPONSE", e.getMessage());
                 return "";
             }
-        }
+        }*/
     }
 
 }

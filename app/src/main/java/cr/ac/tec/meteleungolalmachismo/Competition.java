@@ -16,9 +16,9 @@ public class Competition {
         try
         {
             this.dataCompetition = dataCompetition;
-            this.league_id = dataCompetition.getString("league_id");
-            this.league_name = dataCompetition.getString("league_name");
-            this.country_id = dataCompetition.getString("country_id");
+            this.league_id = dataCompetition.getString("_id");
+            this.league_name = dataCompetition.getString("name");
+            this.country_id = dataCompetition.getString("id_country");
             this.country_name = dataCompetition.getString("country_name");
         }
         catch (Exception e)

@@ -22,13 +22,13 @@ public class Match {
     {
         try{
             this.dataMatch = dataMatch;
-            this.match_id = dataMatch.getString("match_id");
-            this.match_date = dataMatch.getString("match_date");
-            this.match_hometeam_name = dataMatch.getString("match_hometeam_name");
-            this.match_awayteam_name = dataMatch.getString("match_awayteam_name");
-            this.match_hometeam_score = dataMatch.getString("match_hometeam_score");
-            this.match_awayteam_score = dataMatch.getString("match_awayteam_score");
-            this.match_status = dataMatch.getString("match_status");
+            this.match_id = dataMatch.getString("_id");
+            this.match_date = dataMatch.getString("schedule_date");
+            this.match_hometeam_name = dataMatch.getString("team_season_home_name");
+            this.match_awayteam_name = dataMatch.getString("team_season_away_name");
+            this.match_hometeam_score = dataMatch.getString("number_goal_team_home");
+            this.match_awayteam_score = dataMatch.getString("number_goal_team_away");
+            this.match_status = dataMatch.getString("fixture_status");
             this.league_name = dataMatch.getString("league_name");
         }
         catch (Exception e)
