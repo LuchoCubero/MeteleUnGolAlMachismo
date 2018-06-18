@@ -5,13 +5,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookRequestError;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.twitter.sdk.android.core.Result;
@@ -72,7 +77,7 @@ public final class LoginActivity extends AppCompatActivity {
                                 Intent main = new Intent(LoginActivity.this, MainActivity.class);
                                 main.putExtra("username", username[0]);
                                 LoginActivity.this.startActivity(main);
-                                Toast.makeText(LoginActivity.this, "OKOKOK", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginActivity.this, "Bienvenido", Toast.LENGTH_LONG).show();
                             } catch (Exception e) {
                                 Log.v("LoginActivity", e.toString());
                             }
@@ -120,4 +125,34 @@ public final class LoginActivity extends AppCompatActivity {
             }
         };
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(isLoggedInFB())
+        {
+            Intent main = new Intent(LoginActivity.this, MainActivity.class);
+            LoginActivity.this.startActivity(main);
+        }
+    }
+
+    public boolean isLoggedInFB() {
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        return accessToken != null;
+    }
+
+    public boolean logOut()
+    {
+        if(isLoggedInFB())
+        {
+            LoginManager.getInstance().logOut();
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+
+
 }

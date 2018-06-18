@@ -2,9 +2,11 @@ package cr.ac.tec.meteleungolalmachismo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -61,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
             new NavigationView.OnNavigationItemSelectedListener() {
@@ -75,13 +79,22 @@ public class MainActivity extends AppCompatActivity {
                     if(String.valueOf(menuItem.getItemId()).equals(String.valueOf(R.id.pref)))
                     {
                         Toast.makeText(getApplicationContext(), "OKOKOK", Toast.LENGTH_LONG).show();
+                        Intent main = new Intent(MainActivity.this, SettingsActivity.class);
+                        startActivity(main);
 
                     }
                     else if(String.valueOf(menuItem.getItemId()).equals(String.valueOf(R.id.logout)))
                     {
+                        LoginActivity loginActivity = new LoginActivity();
+                        if(loginActivity.logOut())
+                        {
+                            Intent login = new Intent(MainActivity.this, LoginActivity.class);
+                            MainActivity.this.startActivity(login);
+                        }
+//                         loginActivity.logOut();
+//                         Intent login = new Intent(MainActivity.this, LoginActivity.class);
+//                         MainActivity.this.startActivity(login);
 
-//                        Intent login = new Intent(MainActivity.this, LoginActivity.class);
-//                        MainActivity.this.startActivity(login);
                     }
                     // Add code here to update the UI based on the item selected
                     // For example, swap UI fragments here
@@ -93,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
 
         TextView tvuser = (TextView)header.findViewById(R.id.headerTV);
         tvuser.setText(username);
-
 
         lv = (ListView) findViewById(R.id.list);
         data = new ArrayList<>();
@@ -110,10 +122,23 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onResume() {
+        SharedPreferences prefs =PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        Boolean espana =  prefs.getBoolean("espana", false);
+        Boolean inglaterra =  prefs.getBoolean("inglaterra", false);
+        Boolean francia =  prefs.getBoolean("francia", false);
+
+        //Toast.makeText(this,liga.toString(), Toast.LENGTH_LONG).show();
+        super.onResume();
+    }
+
+
     private class GetMatches extends AsyncTask<Void, Void, Void>{
 
         private String refreshToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1YWRkMTRiNzI3OTNiYjU2ODI2NTg3NTQiLCJpYXQiOjE1Mjg5NTY1NjR9.JbeVKVxt92VGeN5XDiufW7Ti0qRm5xxyWkgCMZZ9wh4";
         private String accessToken = "";
+
         @Override
         protected void onPreExecute()
         {
