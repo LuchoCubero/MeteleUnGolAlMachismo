@@ -87,7 +87,16 @@ public class CompetitionAdapter extends BaseAdapter{
                 team2.setText(((Match) list.get(i)).getMatch_awayteam_name());
                 score1.setText(((Match) list.get(i)).getMatch_hometeam_score());
                 score2.setText(((Match) list.get(i)).getMatch_awayteam_score());
-                time.setText(((Match) list.get(i)).getMatch_status());
+                if(((Match) list.get(i)).getMatch_status().equals("Not started"))
+                {
+                    time.setText(((Match) list.get(i)).getTime());
+                }
+                else
+                {
+                    time.setText(((Match) list.get(i)).getMatch_status());
+                }
+
+
                 break;
             }
             case HEADER: {

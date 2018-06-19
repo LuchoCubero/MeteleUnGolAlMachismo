@@ -111,4 +111,18 @@ public class Match {
     public void setMatch_awayteam_score(String match_awayteam_score) {
         this.match_awayteam_score = match_awayteam_score;
     }
+
+    public String getTime(){
+        try
+        {
+            String date = this.dataMatch.getString("schedule_date");
+            date = date.replace(".000Z", "");
+            date = date.replace("2018-", "");
+            return date;
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+    }
 }

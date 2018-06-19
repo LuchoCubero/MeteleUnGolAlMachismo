@@ -9,17 +9,75 @@
         android:key="list_leagues"
         android:title="@string/leagues"
         android:persistent="false">
+        <PreferenceCategory
+            android:title="@string/leagues"/>
         <CheckBoxPreference
-            android:key="espana"
-            android:title="espana"
+            android:key="firstdivisiona"
+            android:title="First Division A"
             android:defaultValue="true"/>
         <CheckBoxPreference
-            android:key="inglaterra"
-            android:title="inglaterra"
+            android:key="champioship"
+            android:title="Champioship"
             android:defaultValue="true"/>
         <CheckBoxPreference
-            android:key="francia"
-            android:title="francia"
+            android:key="facup"
+            android:title="Fa Cup"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="league1"
+            android:title="League 1"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="premierleague"
+            android:title="Premier League"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="ligue1"
+            android:title="Ligue 1"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="1bundesliga"
+            android:title="1. Bundesliga"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="2bundesliga"
+            android:title="2. Bundesliga"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="championslegue"
+            android:title="Champions Legue"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="europaleague"
+            android:title="Europa League"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="worldcup"
+            android:title="World Cup"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="coppaitalia"
+            android:title="Coppa Italia"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="seriea"
+            android:title="Serie A"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="serieb"
+            android:title="Serie B"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="eredivise"
+            android:title="Eredivise"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="primeradivision"
+            android:title="Primera Division"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="segundab"
+            android:title="Segunda B"
             android:defaultValue="true"/>
     </PreferenceScreen>
 </PreferenceScreen>

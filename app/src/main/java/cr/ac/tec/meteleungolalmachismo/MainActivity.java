@@ -44,8 +44,12 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private ListView lv;
-    ArrayList<Object> data;
+    ArrayList<Object> data = null;
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
 
                     if(String.valueOf(menuItem.getItemId()).equals(String.valueOf(R.id.pref)))
                     {
-                        Toast.makeText(getApplicationContext(), "OKOKOK", Toast.LENGTH_LONG).show();
                         Intent main = new Intent(MainActivity.this, SettingsActivity.class);
                         startActivity(main);
 
@@ -107,9 +110,13 @@ public class MainActivity extends AppCompatActivity {
         TextView tvuser = (TextView)header.findViewById(R.id.headerTV);
         tvuser.setText(username);
 
-        lv = (ListView) findViewById(R.id.list);
-        data = new ArrayList<>();
-        new GetMatches().execute();
+        if(data == null)
+        {
+            lv = (ListView) findViewById(R.id.list);
+            data = new ArrayList<>();
+            new GetMatches().execute();
+        }
+
     }
 
     @Override
@@ -124,15 +131,147 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        SharedPreferences prefs =PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        Boolean espana =  prefs.getBoolean("espana", false);
-        Boolean inglaterra =  prefs.getBoolean("inglaterra", false);
-        Boolean francia =  prefs.getBoolean("francia", false);
-
-        //Toast.makeText(this,liga.toString(), Toast.LENGTH_LONG).show();
         super.onResume();
+        filter();
     }
 
+    private void filter()
+    {
+        SharedPreferences prefs =PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        boolean firstdivisiona = prefs.getBoolean("firstdivisiona", false);
+        boolean champioship = prefs.getBoolean("champioship", false);
+        boolean facup = prefs.getBoolean("facup", false);
+        boolean league1 = prefs.getBoolean("league1", false);
+        boolean premierleague = prefs.getBoolean("premierleague", false);
+        boolean ligue1 = prefs.getBoolean("ligue1", false);
+        boolean bundesliga1 = prefs.getBoolean("1bundesliga", false);
+        boolean bundesliga2 = prefs.getBoolean("2bundesliga", false);
+        boolean championslegue = prefs.getBoolean("championslegue", false);
+        boolean europaleague = prefs.getBoolean("europaleague", false);
+        boolean worldcup = prefs.getBoolean("worldcup", false);
+        boolean coppaitalia = prefs.getBoolean("coppaitalia", false);
+        boolean seriea = prefs.getBoolean("seriea", false);
+        boolean serieb = prefs.getBoolean("serieb", false);
+        boolean eredivise = prefs.getBoolean("eredivise", false);
+        boolean primeradivision = prefs.getBoolean("primeradivision", false);
+        boolean segundab = prefs.getBoolean("segundab", false);
+
+        ArrayList<Object> filtereddata = new ArrayList<>();
+        if(firstdivisiona)
+        {
+            filtereddata.addAll(filterarray("139"));
+        }
+
+        if(champioship)
+        {
+            filtereddata.addAll(filterarray("12"));
+        }
+
+        if(facup)
+        {
+            filtereddata.addAll(filterarray("2"));
+        }
+
+        if(league1)
+        {
+            filtereddata.addAll(filterarray("6"));
+        }
+
+        if(premierleague)
+        {
+            filtereddata.addAll(filterarray("8"));
+        }
+
+        if(ligue1)
+        {
+            filtereddata.addAll(filterarray("123"));
+        }
+
+        if(bundesliga1)
+        {
+            filtereddata.addAll(filterarray("108"));
+        }
+
+        if(bundesliga2)
+        {
+            filtereddata.addAll(filterarray("107"));
+        }
+
+        if(championslegue)
+        {
+            filtereddata.addAll(filterarray("34"));
+        }
+
+        if(europaleague)
+        {
+            filtereddata.addAll(filterarray("55"));
+        }
+
+        if(worldcup)
+        {
+            filtereddata.addAll(filterarray("82"));
+        }
+
+        if(coppaitalia)
+        {
+            filtereddata.addAll(filterarray("99"));
+        }
+
+        if(seriea)
+        {
+            filtereddata.addAll(filterarray("101"));
+        }
+
+        if(serieb)
+        {
+            filtereddata.addAll(filterarray("98"));
+        }
+
+        if(eredivise)
+        {
+            filtereddata.addAll(filterarray("145"));
+        }
+
+        if(primeradivision)
+        {
+            filtereddata.addAll(filterarray("129"));
+        }
+
+        if(segundab)
+        {
+            filtereddata.addAll(filterarray("130"));
+        }
+
+        lv.setAdapter(new CompetitionAdapter(MainActivity.this, filtereddata));
+    }
+
+    private ArrayList<Object> filterarray(String code)
+    {
+        ArrayList<Object> filtereddata = new ArrayList<>();
+        for(int a = 0; a < data.size(); a++)
+        {
+            if(data.get(a) instanceof Competition)
+            {
+                if(((Competition) data.get(a)).getLeague_id().equals(code))
+                {
+                    filtereddata.add(data.get(a));
+                    for(int b = a+1; b < data.size(); b++)
+                    {
+                        if(data.get(b) instanceof Competition)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            filtereddata.add(data.get(b));
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        return filtereddata;
+    }
 
     private class GetMatches extends AsyncTask<Void, Void, Void>{
 
@@ -143,13 +282,14 @@ public class MainActivity extends AppCompatActivity {
         protected void onPreExecute()
         {
             super.onPreExecute();
-            Toast.makeText(MainActivity.this,"Json Data is downloading",Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this,"Downloading data, please wait.",Toast.LENGTH_LONG).show();
         }
 
         @Override
         protected void onPostExecute(Void result){
             super.onPostExecute(result);
-            lv.setAdapter(new CompetitionAdapter(MainActivity.this, data));
+            //lv.setAdapter(new CompetitionAdapter(MainActivity.this, data));
+            filter();
         }
 
         @Override
@@ -316,135 +456,6 @@ public class MainActivity extends AppCompatActivity {
                 return null;
             }
         }
-
-
-       /* @Override
-        protected Void doInBackground(Void... voids) {
-            try{
-                //Read JSON response and print
-                JSONArray paises = new JSONArray(getPaises());
-                Log.e("RESPONSE", "Response from url: " + paises.toString());
-
-                for(int a = 0; a < paises.length(); a++) //GetLigas
-                {
-                    JSONObject jsonPaises = paises.getJSONObject(a); //Json con country_id y country_name
-                    int pais = jsonPaises.getInt("country_id");
-                    Log.e("RESPONSE", String.valueOf(pais));
-                    JSONArray ligas = new JSONArray(getLigaPorPais(pais));
-                    for(int b = 0; b < ligas.length(); b++) //GetPartidos
-                    {
-                        Competition competition = new Competition(ligas.getJSONObject(b));
-                        String liga = competition.getLeague_id();
-                        datos.add(competition);
-
-                        JSONArray partidos = new JSONArray(getPartidos(Integer.valueOf(liga)));
-                        for(int c = 0; c < partidos.length(); c++)
-                        {
-                            Match match = new Match(partidos.getJSONObject(c));
-                            datos.add(match);
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Log.e("RESPONSE", e.getMessage());
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result){
-            super.onPostExecute(result);
-            lv.setAdapter(new CompetitionAdapter(MainActivity.this, datos));
-        }
-
-        public String getPaises(){
-            try
-            {
-                String url = "https://apifootball.com/api/?action=get_countries&APIkey=" + APIkey;
-                URL obj = new URL(url);
-                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-                con.setRequestMethod("GET");
-                int responseCode = con.getResponseCode();
-                Log.e("RESPONSE","Sending 'GET' request to URL : " + url);
-                Log.e("RESPONSE","Response Code : " + responseCode);
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuffer response = new StringBuffer();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-                return response.toString();
-            }
-            catch (Exception e) //Falta manejar bien el error.
-            {
-                Log.e("RESPONSE", e.getMessage());
-                return "";
-            }
-        }
-
-        public String getLigaPorPais(int pais){
-            try
-            {
-                String url = "https://apifootball.com/api/?action=get_leagues&country_id="+ pais +"&APIkey=" + APIkey;
-                URL obj = new URL(url);
-                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-                con.setRequestMethod("GET");
-                int responseCode = con.getResponseCode();
-                Log.e("RESPONSE","Sending 'GET' request to URL : " + url);
-                Log.e("RESPONSE","Response Code : " + responseCode);
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuffer response = new StringBuffer();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-                return response.toString();
-            }
-            catch (Exception e) //Falta manejar bien el error.
-            {
-                Log.e("RESPONSE", e.getMessage());
-                return "";
-            }
-        }
-
-        public String getPartidos(int liga)
-        {
-            LocalDate date = LocalDate.now();
-            LocalDate daysAgo = LocalDate.now().minusDays(60);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String inicioFecha = date.format(formatter);
-            String finalFecha = daysAgo.format(formatter);
-            Log.e("TIME",finalFecha);
-            Log.e("TIME",inicioFecha);
-            try
-            {
-                //String url = "https://apifootball.com/api/?action=get_events&from="+inicioFecha+"&to="+finalFecha+"&league_id="+liga+"&APIkey=" + APIkey;
-                String url = "https://apifootball.com/api/?action=get_events&from=2018-04-07&to=2018-06-06&league_id=63&APIkey=3e9154281f99813c6a45c9ffaab8bf2e9f87b0b3e79f81296c461df25d2df54c"; //Just for testing
-                URL obj = new URL(url);
-                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-                con.setRequestMethod("GET");
-                int responseCode = con.getResponseCode();
-                Log.e("RESPONSE","Sending 'GET' request to URL : " + url);
-                Log.e("RESPONSE","Response Code : " + responseCode);
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuffer response = new StringBuffer();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-                return response.toString();
-            }
-            catch (Exception e) //Falta manejar bien el error.
-            {
-                Log.e("RESPONSE", e.getMessage());
-                return "";
-            }
-        }*/
     }
 
 }
