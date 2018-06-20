@@ -62,6 +62,8 @@ public final class LoginActivity extends AppCompatActivity {
 
     public FacebookCallback<LoginResult> getFacebookCallBack() {
         return new FacebookCallback<LoginResult>() {
+            //Los métodos getFacebookCallBack y  getTwitterCallback son
+            // los métodos que resuelven lo que sucede con las respuestas de los APIs.
             @Override
             public void onSuccess(final LoginResult loginResult) {
                 final String[] username = new String[1];
@@ -105,6 +107,8 @@ public final class LoginActivity extends AppCompatActivity {
     public com.twitter.sdk.android.core.Callback<TwitterSession> getTwitterCallback()
     {
         return new com.twitter.sdk.android.core.Callback<TwitterSession>() {
+            //Los métodos getFacebookCallBack y  getTwitterCallback
+            // son los métodos que resuelven lo que sucede con las respuestas de los APIs.
             @Override
             public void success(Result<TwitterSession> result){
                 // ... do something

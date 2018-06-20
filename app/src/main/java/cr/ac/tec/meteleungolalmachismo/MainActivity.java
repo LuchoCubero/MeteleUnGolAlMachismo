@@ -294,6 +294,9 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
+            //Realiza el ciclo para ir pidiendo paises, ligas y partidos
+            //El orden del arrayList importa, debe venir una liga y sus partidos debajo, de lo
+            //contrarío puede no mostrar el orden correcto en la interfaz.
             try{
                 accessToken = accessKey();
                 JSONArray countries = getCountries();
@@ -333,6 +336,9 @@ public class MainActivity extends AppCompatActivity {
 
         private String accessKey()
         {
+            //Para el uso del API se necesita generar un access token cada media hora por lo que
+            // existe un método que lo realiza por nosotros (accessKey), para esta generación se
+            // necesita enviar el refreshToken el cual es que se despliega en la cuenta creada de SportDeer.
             try
             {
                 String url = "https://api.sportdeer.com/v1/accessToken?refresh_token=" + refreshToken;
@@ -350,6 +356,7 @@ public class MainActivity extends AppCompatActivity {
 
         private JSONArray getCountries()
         {
+            //Saquen los países y ligas por país (getCountries),
             try
             {
                 String url = "https://api.sportdeer.com/v1/countries?populate=leagues&access_token=";
@@ -367,6 +374,7 @@ public class MainActivity extends AppCompatActivity {
 
         private JSONObject getLastSeason(String leagueID)
         {
+            //Sacar la última temporada disponible por cada liga (getLastSeason)
             try
             {
                 String url = "https://api.sportdeer.com/v1/leagues/"+leagueID+"/seasons?access_token=";
@@ -407,6 +415,8 @@ public class MainActivity extends AppCompatActivity {
 
         private JSONArray getFixturesBySeason(String seasonId)
         {
+            //Sacando los encuentros disponibles en el rango de tiempo disponible (getFixturesBySeason)
+            //De momento, usando 15 dias + y - del día actual.
             try
             {
                 LocalDate date = LocalDate.now().plusDays(15);
@@ -432,6 +442,8 @@ public class MainActivity extends AppCompatActivity {
 
         private String getResponse(String url)
         {
+            //Para recibir cada respuesta se usa el método (getResponse)
+            // recibiendo el URL y devolviendo la respuesta en formato String.
             try
             {
                 url = url + accessToken;

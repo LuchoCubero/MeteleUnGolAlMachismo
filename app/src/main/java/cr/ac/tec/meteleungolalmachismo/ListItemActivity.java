@@ -38,7 +38,6 @@ public class ListItemActivity extends AppCompatActivity {
         TWbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 TWshare();
             }
         });
@@ -57,7 +56,6 @@ public class ListItemActivity extends AppCompatActivity {
         {
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
         }
-
     }
 
     public void TWshare(){ //Share screen to Twitter https://github.com/twitter/twitter-kit-android/wiki/Compose-Tweets
@@ -70,10 +68,10 @@ public class ListItemActivity extends AppCompatActivity {
         {
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
         }
-
     }
 
     public Bitmap getScreenBitmap() {
+        //Tomar una imagen de la pantalla (getScreenBitmap)
         View v= findViewById(android.R.id.content).getRootView();
         v.setDrawingCacheEnabled(true);
         v.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
@@ -91,8 +89,4 @@ public class ListItemActivity extends AppCompatActivity {
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }
-
-
-
-
 }
