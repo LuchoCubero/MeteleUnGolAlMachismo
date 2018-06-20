@@ -14,9 +14,9 @@
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
-    <string name="notifications">Notify every goal</string>
-    <string name="notification_summary">Notify every goal in your league preferences.</string>
-    <string name="leagues">Select your leagues</string>
+    <string name="notifications">Notificar cada gol</string>
+    <string name="notification_summary">Notificar cada gol en la liga de sus preferencias</string>
+    <string name="leagues">Seleccione sus ligas favoritas</string>
 
     <string-array name="planets_array">Algo</string-array>
 

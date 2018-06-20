@@ -4,7 +4,7 @@
         android:menuCategory="system">
         <item
             android:id="@+id/pref"
-            android:title="Preferences" />
+            android:title="Preferencias" />
         <item
             android:id="@+id/logout"
             android:title="Cerrar Sesión" />
